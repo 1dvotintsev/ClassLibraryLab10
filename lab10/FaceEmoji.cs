@@ -15,7 +15,14 @@ namespace ClassLibraryLab10
         public string Symbols
         {
             get { return symbols; }
-            set { symbols = value; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))  // возвращает true, если строка состоит только из пробелов или null
+                {
+                    throw new ArgumentException("Символьная запись не заполена");
+                }
+                symbols = value;
+            }
         }
         public FaceEmoji() : base() 
         {
@@ -68,6 +75,17 @@ namespace ClassLibraryLab10
             }
             else
                 return false;
+        }
+
+        public new object Clone()
+        {
+            FaceEmoji clone = new FaceEmoji(this.Name, this.Tag, this.id.number, this.Symbols);
+            return clone;
+        }
+
+        public new object ShallowClone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

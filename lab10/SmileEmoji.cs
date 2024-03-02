@@ -17,7 +17,14 @@ namespace ClassLibraryLab10
         public string Reason
         {
             get { return reason; }
-            set { reason = value; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))  // возвращает true, если строка состоит только из пробелов или null
+                {
+                    throw new ArgumentException("Причина не заполнена");
+                }
+                reason = value;
+            }
         }
 
         public int Grade
@@ -104,6 +111,17 @@ namespace ClassLibraryLab10
             }
             else
                 return false;
+        }
+
+        public new object Clone()
+        {
+            SmileEmoji clone = new SmileEmoji(this.Name,this.Tag, this.id.number, this.Reason, this.Grade);
+            return clone;
+        }
+
+        public new object ShallowClone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

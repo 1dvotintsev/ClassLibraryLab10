@@ -3,6 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+
+//+ ограничение в свойствах для строк. 
+//+ запросы должны всегда получать входные параметры и возвращать результат (а не просто выводить значения по условию – смешение логики и пользовательского интерфейса).
+//– Реализовать для классов иерархии метод клонирования объектов из интерфейса IClonable.
+
+
+
+
+
 
 namespace ClassLibraryLab10
 {
@@ -45,6 +55,10 @@ namespace ClassLibraryLab10
             }
             set
             {
+                if (string.IsNullOrWhiteSpace(value))  // возвращает true, если строка состоит только из пробелов или null
+                {
+                    throw new ArgumentException("Имя не заполнено");
+                }
                 name = value;
             }
         }
@@ -57,6 +71,10 @@ namespace ClassLibraryLab10
             }
             set
             {
+                if (string.IsNullOrWhiteSpace(value))  // возвращает true, если строка состоит только из пробелов или null
+                {
+                    throw new ArgumentException("Тэг не заполнен");
+                }
                 tag = value;
             }
         }
@@ -132,7 +150,7 @@ namespace ClassLibraryLab10
         }
 
         //поиск самого сильного эмоджи
-        public static void FindBestGrade(Emoji[] array)
+        public static string FindBestGrade(Emoji[] array)
         {
             int count = 0;
             SmileEmoji emoji = new SmileEmoji();
@@ -150,15 +168,14 @@ namespace ClassLibraryLab10
 
             if (count != 0)
             {
-                Console.WriteLine("\nСамое сильное эмоджи:");
-                emoji.ShowVirtual();
+                return $"\nСамае сильная степень улыбки эмоджи: {emoji.Grade}";
             }
             else
-                Console.WriteLine("\nВ массиве нет эмоджи, обладающих силой");
+                return"\nВ массиве нет эмоджи, обладающих силой";
         }
 
         //причины улыбающихся с силой не меньше
-        public static void FindReasonsFrom(Emoji[] array, int minGrade)
+        public static string FindReasonsFrom(Emoji[] array, int minGrade)
         {
             string result = $"\nПричины всех улыбающихся эмоджи силой больше {minGrade}: ";
             int count = 0;
@@ -173,14 +190,14 @@ namespace ClassLibraryLab10
             }
             if (count > 0)
             {
-                Console.WriteLine(result);
+                return result;
             }
             else
-                Console.WriteLine("\nВ массиве нет улыбающихся эмоджи.");
+                return "\nВ массиве нет улыбающихся эмоджи.";
         }
 
         //тэги всех эмоджи-животных
-        public static void FindAnimalsTags(Emoji[] array)
+        public static string FindAnimalsTags(Emoji[] array)
         {
             int count = 0;
             string result = "\nТэги всех животных-эмоджи в массиве: ";
@@ -196,10 +213,10 @@ namespace ClassLibraryLab10
 
             if (count != 0)
             {
-                Console.WriteLine(result);
+                return result;
             }
             else
-                Console.WriteLine("\nВ массиве нет животных-эмоджи");
+                return "\nВ массиве нет животных-эмоджи";
         }
 
         public int CompareTo(object? obj)

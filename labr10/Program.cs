@@ -69,11 +69,11 @@ namespace labr10
 
             Console.WriteLine("--------------------------------------");
 
-            Emoji.FindBestGrade(array);       //тест нахождения самой сильной эмоджи
-             
-            Emoji.FindAnimalsTags(array);     //тест вывода всех тэгов животных
+            Console.WriteLine(Emoji.FindBestGrade(array));       //тест нахождения самой сильной эмоджи
 
-            Emoji.FindReasonsFrom(array, 3);  //тест нахождения причин у эмоджи силой >= 3
+            Console.WriteLine(Emoji.FindAnimalsTags(array));     //тест вывода всех тэгов животных
+
+            Console.WriteLine(Emoji.FindReasonsFrom(array, 3));  //тест нахождения причин у эмоджи силой >= 3
 
             Console.WriteLine("----------------------------");
 

@@ -15,7 +15,14 @@ namespace ClassLibraryLab10
         public string Part
         {
             get { return part; }
-            set { part = value; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))  // возвращает true, если строка состоит только из пробелов или null
+                {
+                    throw new ArgumentException("Часть тела не заполнена");
+                }
+                part = value;
+            }
         }
         public AnimalEmoji() : base()
         {
@@ -67,6 +74,17 @@ namespace ClassLibraryLab10
             }
             else
                 return false;
+        }
+
+        public new object Clone()
+        {
+            AnimalEmoji clone = new AnimalEmoji(this.Name, this.Tag, this.id.number, this.Part);
+            return clone;
+        }
+
+        public new object ShallowClone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }
